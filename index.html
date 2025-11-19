@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>WorkSphere - Virtual Workspace</title>
+</head>
+<body>
+    <header>
+        <h1>WORKING-SPHERE</h1>
+    </header>
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="bigcontain">
+        <div class="side" id="side">
+            <button type="button" id="validation" class="validation">AJOUTER UN PERSONNEL</button>
+            <hr>
+            <div class="persolist" id="persolist">
+                <div class="empty-state">
+                    <div class="empty-state-icon">👤</div>
+                    <p>Aucun personnel non assigné</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="container">
+
+            <div class="conference">
+                <h1>SALLE DE CONFERENCE</h1>
+                <button type="button" class="plusbtn" data-zone="conference">+</button>
+                <div class="conferencelist" id="conferencelist"></div>
+            </div>
+
+            <div class="vertcolouar"></div>
+
+            <div class="horizcolouar"></div>
+
+            <div class="reception">
+                <h1>SALLE DE RECEPTION</h1>
+                <button type="button" class="plusbtn" data-zone="reception">+</button>
+                <div class="receptionlist" id="receptionlist"></div>
+            </div>
+
+            <div class="serveurs">
+                <h1>SALLE DES SERVEURS</h1>
+                <button type="button" class="plusbtn" data-zone="serveurs">+</button>
+                <div class="serveurslist" id="serveurslist"></div>
+            </div>
+
+            <div class="securite" id="securite">
+                <h1>SALLE DE SECURITE</h1>
+                <button type="button" class="plusbtn" data-zone="securite">+</button>
+                <div class="securitelist" id="securitelist"></div>
+            </div>
+
+            <div class="personnel" id="personnel">
+                <h1>SALLE DES PERSONNEL</h1>
+                <button type="button" class="plusbtn" data-zone="personnel">+</button>
+                <div class="persnnallist" id="persnnallist"></div>
+            </div>
+
+            <div class="archives">
+                <h1>SALLE D'ARCHIVES</h1>
+                <button type="button" class="plusbtn" data-zone="archives">+</button>
+                <div class="archiveslist" id="archiveslist"></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
