@@ -209,3 +209,24 @@ document.getElementById("validation").addEventListener("click", () => {
         document.getElementById("modalOverlay").classList.remove("active");
     });
 });
+
+function createPersonnelCard(Fname, Image, Role, Email, Telephone, Experiences) {
+    const emptyState = persoList.querySelector('.empty-state');
+    if (emptyState) {
+        emptyState.remove();
+    }
+
+    const carte = document.createElement("div");
+    carte.classList.add("pronalinfo");
+    carte.dataset.name = Fname;
+    carte.innerHTML = `
+        <img src="${Image}" alt="userlogo">
+        <div class="info" data-profile="${Fname}">
+            <h1>${Fname}</h1>
+            <p>${Role}</p>
+        </div>
+    `;
+
+    persoList.appendChild(carte);
+}
+
