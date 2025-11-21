@@ -230,3 +230,68 @@ function createPersonnelCard(Fname, Image, Role, Email, Telephone, Experiences) 
     persoList.appendChild(carte);
 }
 
+document.querySelectorAll('.plusbtn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const zone = e.target.dataset.zone;
+        const allowedRoles = roomConfig[zone];
+
+        const ValidForm = document.createElement("div");
+        ValidForm.className = "validationForm active";
+        ValidForm.id = "validationForm";
+
+        ValidForm.innerHTML = `
+            <div class="btncancel">
+                <h1>Assigner à ${zone.toUpperCase()}</h1>
+                <button type="button" id="closeModal2">X</button>
+            </div>
+            <div class="personnel-selection" id="personnelSelection"></div>
+        `;
+
+        const selectionDiv = ValidForm.querySelector('#personnelSelection');
+
+        // Filtrer les employés non assignés et qui ont le bon rôle
+        const availableEmployees = GlobalAWorks.filter(emp => {
+            const isInRoom = RoomArr[zone].some(r => r.name === emp.name);
+            return !isInRoom && allowedRoles.includes(emp.role);
+        });
+
+        if (availableEmployees.length === 0) {
+            selectionDiv.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">⚠️</div>
+                    <p>Aucun personnel disponible pour cette salle</p>
+                </div>
+            `;
+        } else {
+            availableEmployees.forEach(emp => {
+                const carte = document.createElement("div");
+                carte.classList.add("pronalinfo");
+                carte.style.cursor = "pointer";
+                carte.innerHTML = `
+                    <img src="${emp.image}" alt="userlogo">
+                    <div class="info">
+                        <h1>${emp.name}</h1>
+                        <p>${emp.role}</p>
+                    </div>
+                `;
+
+                carte.addEventListener('click', () => {
+                    assignToRoom(zone, emp);
+                    ValidForm.remove();
+                    document.getElementById("modalOverlay").classList.remove("active");
+                });
+
+                selectionDiv.appendChild(carte);
+            });
+        }
+
+        container.appendChild(ValidForm);
+        document.getElementById("modalOverlay").classList.add("active");
+
+        document.getElementById("closeModal2").addEventListener("click", () => {
+            ValidForm.remove();
+            document.getElementById("modalOverlay").classList.remove("active");
+        });
+    });
+});
+
