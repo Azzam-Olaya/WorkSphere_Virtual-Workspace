@@ -295,3 +295,41 @@ document.querySelectorAll('.plusbtn').forEach(btn => {
     });
 });
 
+function assignToRoom(zone, employee) {
+    const roomList = document.getElementById(`${zone}list`);
+    
+    
+    // Ajouter à l'array de la salle
+    RoomArr[zone].push(employee);
+
+    // Créer la carte dans la salle
+    const carte = document.createElement("div");
+    carte.classList.add("pronalinfor");
+    carte.dataset.name = employee.name;
+    carte.innerHTML = `
+        <img src="${employee.image}" alt="userlogo">
+        <div class="info" data-profile="${employee.name}">
+            <h1>${employee.name}</h1>
+            <p>${employee.role}</p>
+        </div>
+        <button class="remove-from-zone" data-zone="${zone}" data-name="${employee.name}">×</button>
+    `;
+
+    roomList.appendChild(carte);
+
+    // Supprimer de la liste persolist
+    const cardInPersolist = persoList.querySelector(`[data-name="${employee.name}"]`);
+    if (cardInPersolist) {
+        cardInPersolist.remove();
+    }
+
+    // Si persolist est vide, afficher l'état vide
+    if (persoList.children.length === 0) {
+        persoList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">👤</div>
+                <p>Aucun personnel non assigné</p>
+            </div>
+        `;
+    }
+}

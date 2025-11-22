@@ -184,13 +184,13 @@ hr {
 }
 
 .conferencelist, .receptionlist, .serveurslist, .securitelist, .persnnallist, .archiveslist {
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    width: 100%;
-    overflow-y: auto;
-    flex: 1;
+    padding: 15px;
+    position: relative;
+    z-index: 1;
 }
 
 .pronalinfor {
