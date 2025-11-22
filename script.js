@@ -363,3 +363,72 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+// Affichage du profil au clic
+document.addEventListener('click', (e) => {
+    const profileElement = e.target.closest('[data-profile]');
+    if (profileElement) {
+        const DataName = profileElement.dataset.profile;
+        const employee = GlobalAWorks.find(pr => pr.name === DataName);
+
+        if (employee) {
+            const DisplayProfile = document.createElement('div');
+            DisplayProfile.classList.add('profile-modal', 'active');
+            DisplayProfile.id = "profiledisplay";
+
+            let experiencesHTML = '';
+            if (employee.experiences && employee.experiences.length > 0) {
+                experiencesHTML = employee.experiences.map(exp => `
+                    <div class="info-row">
+                        <div class="info-label">Entreprise:</div>
+                        <div class="info-value">${exp.entreprise || 'N/A'}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Rôle:</div>
+                        <div class="info-value">${exp.role || 'N/A'}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Période:</div>
+                        <div class="info-value">${exp.debut || 'N/A'} - ${exp.fin || 'N/A'}</div>
+                    </div>
+                    <hr style="margin: 10px 0;">
+                `).join('');
+            } else {
+                experiencesHTML = '<p style="text-align: center; color: #999;">Aucune expérience enregistrée</p>';
+            }
+
+            DisplayProfile.innerHTML = `
+                <div class="btncancel">
+                    <h1>Profil</h1>
+                    <button type="button" id="closeProfile">X</button>
+                </div>
+                <div class="profile-header">
+                    <img src="${employee.image}" alt="Profile" class="profile-photo">
+                    <h2 class="profile-name">${employee.name}</h2>
+                    <span class="profile-role">${employee.role}</span>
+                </div>
+                <div class="profile-info">
+                    <div class="info-row">
+                        <div class="info-label">Email:</div>
+                        <div class="info-value">${employee.email}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Téléphone:</div>
+                        <div class="info-value">${employee.phone}</div>
+                    </div>
+                    <hr style="margin: 20px 0;">
+                    <h3 style="margin-bottom: 15px;">Expériences</h3>
+                    ${experiencesHTML}
+                </div>
+            `;
+
+            container.appendChild(DisplayProfile);
+            document.getElementById("modalOverlay").classList.add("active");
+
+            document.getElementById("closeProfile").addEventListener("click", () => {
+                DisplayProfile.remove();
+                document.getElementById("modalOverlay").classList.remove("active");
+            });
+        }
+    }
+});
