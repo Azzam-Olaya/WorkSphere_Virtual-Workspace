@@ -334,31 +334,3 @@ function assignToRoom(zone, employee) {
     }
 }
 
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('remove-from-zone')) {
-        const zone = e.target.dataset.zone;
-        const name = e.target.dataset.name;
-
-        // Trouver l'employé dans l'array de la salle
-        const employee = RoomArr[zone].find(emp => emp.name === name);
-        
-        if (employee) {
-            // Supprimer de l'array de la salle
-            RoomArr[zone] = RoomArr[zone].filter(emp => emp.name !== name);
-
-            // Supprimer la carte de la salle
-            const cardInRoom = document.querySelector(`#${zone}list [data-name="${name}"]`);
-            if (cardInRoom) {
-                cardInRoom.remove();
-            }
-
-            // Rajouter dans persolist
-            const emptyState = persoList.querySelector('.empty-state');
-            if (emptyState) {
-                emptyState.remove();
-            }
-
-            createPersonnelCard(employee.name, employee.image, employee.role, employee.email, employee.phone, employee.experiences);
-        }
-    }
-});
