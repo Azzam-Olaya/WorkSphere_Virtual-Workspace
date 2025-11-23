@@ -635,7 +635,7 @@ hr {
 }
 
 /*tlf*/
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     header h1 {
         font-size: 15px;
     }
@@ -768,7 +768,7 @@ hr {
     .plusbtn {
         width: 25px;
         height: 25px;
-        border-radius: 50%%;
+        border-radius: 50%;
         font-size: 15px;
     }
 
