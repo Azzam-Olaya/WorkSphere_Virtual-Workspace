@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="script.js" defer></script>
     <title>WorkSphere - Virtual Workspace</title>
 </head>
+
 <body>
     <header>
         <h1>WORKING-SPHERE</h1>
@@ -24,12 +26,15 @@
                 </div>
             </div>
         </div>
-
-        <div class="container" id="container">
+        
+        <div class="rotation" >
+            <div class="container" id="container">
 
             <div class="conference">
-                <h1>SALLE DE CONFERENCE</h1>
-                <button type="button" class="plusbtn" data-zone="conference">+</button>
+                <div style="display: flex; gap: 20px;">
+                    <h1>SALLE DE CONFERENCE</h1>
+                    <button type="button" class="plusbtn" data-zone="conference">+</button>
+                </div>
                 <div class="conferencelist" id="conferencelist"></div>
             </div>
 
@@ -38,36 +43,52 @@
             <div class="horizcolouar"></div>
 
             <div class="reception">
-                <h1>SALLE DE RECEPTION</h1>
-                <button type="button" class="plusbtn" data-zone="reception">+</button>
+                <div style="display: flex; gap: 20px;">
+                    <h1>SALLE DE RECEPTION</h1>
+                    <button type="button" class="plusbtn" data-zone="reception">+</button>
+                </div>
                 <div class="receptionlist" id="receptionlist"></div>
             </div>
 
             <div class="serveurs">
-                <h1>SALLE DES SERVEURS</h1>
-                <button type="button" class="plusbtn" data-zone="serveurs">+</button>
+                <div style="display: flex; gap: 20px;">
+                    <h1>SALLE DES SERVEURS</h1>
+                    <button type="button" class="plusbtn" data-zone="serveurs">+</button>
+                </div>
                 <div class="serveurslist" id="serveurslist"></div>
             </div>
 
             <div class="securite" id="securite">
-                <h1>SALLE DE SECURITE</h1>
-                <button type="button" class="plusbtn" data-zone="securite">+</button>
+                <div style="display: flex; gap: 20px;">
+                    <h1>SALLE DE SECURITE</h1>
+                    <button type="button" class="plusbtn" data-zone="securite">+</button>
+                </div>
                 <div class="securitelist" id="securitelist"></div>
             </div>
 
             <div class="personnel" id="personnel">
-                <h1>SALLE DES PERSONNEL</h1>
-                <button type="button" class="plusbtn" data-zone="personnel">+</button>
+                <div style="display: flex; gap: 20px;">
+                    <h1>SALLE DES PERSONNEL</h1>
+                    <button type="button" class="plusbtn" data-zone="personnel">+</button>
+                </div>
                 <div class="persnnallist" id="persnnallist"></div>
             </div>
 
             <div class="archives">
-                <h1>SALLE D'ARCHIVES</h1>
-                <button type="button" class="plusbtn" data-zone="archives">+</button>
+                <div style="display: flex; gap: 20px;">
+                    <h1>SALLE D'ARCHIVES</h1>
+                    <button type="button" class="plusbtn" data-zone="archives">+</button>
+                </div>
                 <div class="archiveslist" id="archiveslist"></div>
             </div>
         </div>
+        </div>
+
+        
+
+
     </div>
-    
+
 </body>
+
 </html>

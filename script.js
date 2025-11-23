@@ -225,7 +225,7 @@ function createPersonnelCard(Fname, Image, Role, Email, Telephone, Experiences) 
             <h1>${Fname}</h1>
             <p>${Role}</p>
         </div>
-    `;
+    `;  
 
     persoList.appendChild(carte);
 }
@@ -307,11 +307,7 @@ function assignToRoom(zone, employee) {
     carte.classList.add("pronalinfor");
     carte.dataset.name = employee.name;
     carte.innerHTML = `
-        <img src="${employee.image}" alt="userlogo">
-        <div class="info" data-profile="${employee.name}">
-            <h1>${employee.name}</h1>
-            <p>${employee.role}</p>
-        </div>
+        <img src="${employee.image}" alt="userlogo" data-profile="${employee.name}">
         <button class="remove-from-zone" data-zone="${zone}" data-name="${employee.name}">×</button>
     `;
 
@@ -432,3 +428,4 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
