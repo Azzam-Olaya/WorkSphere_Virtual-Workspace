@@ -129,42 +129,92 @@ hr {
     position: relative;
 }
 
-.conference, .reception, .serveurs, .securite, .personnel, .archives, .vertcolouar, .horizcolouar {
+.conference,
+.reception,
+.serveurs,
+.securite,
+.personnel,
+.archives,
+.vertcolouar,
+.horizcolouar {
+    position: relative;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 15px;
-    position: relative;
     z-index: 1;
 }
 
-.conference { grid-column: 1 / 2; grid-row: 1 / 2; }
-.vertcolouar { grid-column: 2 / 3; grid-row: 1 / 4; background: rgba(200, 200, 200, 0.5); }
-.horizcolouar { grid-column: 3 / 5; grid-row: 2 / 3; background: rgba(200, 200, 200, 0.5); }
-.reception { grid-column: 1 / 2; grid-row: 2 / 4; }
-.serveurs { grid-column: 3 / 4; grid-row: 1 / 2; }
-.securite { grid-column: 4 / 5; grid-row: 1 / 2; }
-.personnel { grid-column: 3 / 4; grid-row: 3 / 4; }
-.archives { grid-column: 4 / 5; grid-row: 3 / 4; }
+.conference {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
 
-.reception.empty-required, .serveurs.empty-required, .securite.empty-required, .archives.empty-required {
+.vertcolouar {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    background: rgba(200, 200, 200, 0.5);
+}
+
+.horizcolouar {
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+    background: rgba(200, 200, 200, 0.5);
+}
+
+.reception {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+
+.serveurs {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+
+.securite {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+}
+
+.personnel {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+
+.archives {
+    grid-column: 4 / 5;
+    grid-row: 3 / 4;
+}
+
+.reception.empty-required,
+.serveurs.empty-required,
+.securite.empty-required,
+.archives.empty-required {
     background: rgba(255, 182, 193, 0.3);
     border: 2px dashed rgba(255, 100, 100, 0.5);
 }
 
-.conference h1, .reception h1, .serveurs h1, .securite h1, .personnel h1, .archives h1 {
+.conference h1,
+.reception h1,
+.serveurs h1,
+.securite h1,
+.personnel h1,
+.archives h1 {
     font-size: 14px;
     font-weight: 800;
+    color: whitesmoke;
     text-align: center;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     text-transform: uppercase;
 }
 
 .plusbtn {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 1000%;
     border: none;
     background: rgb(0, 168, 253);
     color: white;
@@ -183,13 +233,17 @@ hr {
     opacity: 0.5;
 }
 
-.conferencelist, .receptionlist, .serveurslist, .securitelist, .persnnallist, .archiveslist {
-    border: 1px solid black;
+.conferencelist,
+.receptionlist,
+.serveurslist,
+.securitelist,
+.persnnallist,
+.archiveslist {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    padding: 15px;
-    position: relative;
+    flex-wrap: wrap;
+    gap: 15px;
     z-index: 1;
 }
 
@@ -198,11 +252,9 @@ hr {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 10px;
     background: white;
     border-radius: 10px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
-    width: 95%;
     border: 2px solid #e0e0e0;
     cursor: pointer;
     position: relative;
@@ -331,7 +383,8 @@ hr {
     margin-bottom: -10px;
 }
 
-.formAjout input, .formAjout select {
+.formAjout input,
+.formAjout select {
     width: 100%;
     height: 50px;
     border-radius: 10px;
@@ -340,7 +393,8 @@ hr {
     font-size: 16px;
 }
 
-.formAjout input:focus, .formAjout select:focus {
+.formAjout input:focus,
+.formAjout select:focus {
     border-color: rgb(0, 168, 253);
     outline: none;
 }
@@ -436,7 +490,10 @@ hr {
     background: rgb(0, 148, 233);
 }
 
-#fnamemessage, #emailmessage, #phonemessage, #experiencemessage {
+#fnamemessage,
+#emailmessage,
+#phonemessage,
+#experiencemessage {
     font-size: 12px;
     margin-top: 5px;
     min-height: 18px;
@@ -562,4 +619,194 @@ hr {
     font-size: 11px;
     font-weight: 700;
     z-index: 10;
+}
+
+.zone-counter {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 168, 253, 0.9);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+/*tlf*/
+@media (max-width: 767px) {
+    header h1 {
+        font-size: 15px;
+    }
+
+    .bigcontain {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: fit-content;
+        gap: 15px;
+
+    }
+
+
+    .container {
+        width: 100%;
+        height: 370px;
+
+
+    }
+
+    .vertcolouar {
+        display: none;
+    }
+
+    .side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 64vh;
+        padding: 20px 0;
+    }
+
+    .conference h1,
+    .reception h1,
+    .serveurs h1,
+    .securite h1,
+    .personnel h1,
+    .archives h1 {
+        font-size: 7px;
+        font-weight: 700;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .plusbtn {
+        width: 15px;
+        height: 15px;
+        font-size: 15px;
+    }
+
+    .validationForm {
+        width: 430px;
+        max-height: 90vh;
+        padding: 10px;
+    }
+
+    .btncancel h1 {
+        font-size: 15px;
+    }
+
+    .btncancel button {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .formAjout input,
+    .formAjout select {
+        font-size: 13px;
+    }
+
+    .profile-name {
+        font-size: 15px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-role {
+        font-size: 12px;
+    }
+
+    .info-label {
+        font-size: 10px;
+    }
+
+    .info-value {
+        font-size: 12px;
+    }
+
+}
+
+/* Tablette li t9adet */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    header h1 {
+        font-size: 1rem;
+    }
+
+    .bigcontain {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: 92vh;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .conference h1,
+    .reception h1,
+    .serveurs h1,
+    .securite h1,
+    .personnel h1,
+    .archives h1 {
+        font-size: 9px;
+    }
+
+    .side {
+        width: 100%;
+        height: 70vh;
+    }
+
+    .plusbtn {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%%;
+        font-size: 15px;
+    }
+
+    .validation {
+        height: 70px;
+        width: 90%;
+        font-size: 20px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    .validationForm {
+        width: 400px;
+        max-height: 90vh;
+        top: 40%;
+    }
+
+    .btncancel h1 {
+        font-size: 18px;
+    }
+
+    .profile-photo {
+        width: 130px;
+        height: 130px;
+    }
+
+    .btncancel button {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        font-size: 15px;
+    }
+
+    .profile-name {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
 }
