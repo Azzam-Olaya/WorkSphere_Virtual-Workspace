@@ -5,12 +5,21 @@ const GlobalAWorks = [];
 const allExperience = [];
 
 const roomConfig = {
-    conference: ["Technicien IT", "Manager", "FS Developer"],
-    securite: ["Agent de sécurité", "Manager"],
-    serveurs: ["Manager", "Technicien IT", "FS Developer"],
-    reception: ["Réceptionniste", "Manager", "Nettoyage", "Agent de sécurité"],
-    personnel: ["Manager", "Nettoyage"],
-    archives: ["Agent de sécurité", "Manager"]
+    reception: ["Réceptionniste", "Manager", "Nettoyage"], 
+    conference: ["Réceptionniste", "Technicien IT", "Manager", "Nettoyage", "FS Developer"], 
+    serveurs: ["Technicien IT", "Manager", "Nettoyage", "FS Developer"], 
+    securite: ["Agent de sécurité", "Manager", "Nettoyage"], 
+    personnel: ["Réceptionniste", "Technicien IT", "Agent de sécurité", "Manager", "Nettoyage", "FS Developer"], 
+    archives: ["Réceptionniste", "Technicien IT", "Agent de sécurité", "Manager", "FS Developer"] 
+};
+
+const roomLimits = {
+    conference: 10,
+    securite: 3,
+    serveurs: 5,
+    reception: 2,
+    personnel: 8,
+    archives: 4
 };
 
 const RoomArr = {
@@ -22,7 +31,113 @@ const RoomArr = {
     archives: []
 };
 
-// Bouton pour ajouter un employé
+function RoomStatus() {
+    const requiredRooms = ['reception', 'serveurs', 'securite', 'archives'];
+    
+    requiredRooms.forEach(zone => {
+        const roomDiv = document.querySelector(`.${zone}`);
+        
+        if (RoomArr[zone].length === 0) {
+            roomDiv.classList.add('empty-required');
+        } else {
+            roomDiv.classList.remove('empty-required');
+        }
+    });
+}
+
+function ZoneCounter(zone) {
+    const roomDiv = document.querySelector(`.${zone}`);
+    
+    let counter = roomDiv.querySelector('.zone-counter');
+    if (!counter) {
+        counter = document.createElement('div');
+        counter.className = 'zone-counter';
+        roomDiv.appendChild(counter);
+    }
+    
+    counter.textContent = `${RoomArr[zone].length}/${roomLimits[zone]}`;
+}
+
+function updatePlusButton(zone) {
+    const btn = document.querySelector(`.plusbtn[data-zone="${zone}"]`);
+    const roomDiv = document.querySelector(`.${zone}`);
+    
+    if (RoomArr[zone].length >= roomLimits[zone]) {
+        btn.classList.add('disabled');
+        btn.disabled = true;
+        roomDiv.classList.add('zone-limit-reached');
+    } else {
+        btn.classList.remove('disabled');
+        btn.disabled = false;
+        roomDiv.classList.remove('zone-limit-reached');
+    }
+}
+
+function ProfileModal(name) {
+    const employee = GlobalAWorks.find(emp => emp.name === name);
+    if (!employee) return;
+    
+    let location = "Non assigné";
+    for (let zone in RoomArr) {
+        if (RoomArr[zone].some(emp => emp.name === name)) {
+            location = zone.toUpperCase();
+            break;
+        }
+    }
+    
+    const modal = document.createElement('div');
+    modal.className = 'profile-modal active';
+    modal.id = 'profileModal';
+    
+    const experiencesHTML = employee.experiences.length > 0 
+        ? employee.experiences.map(exp => `
+            <div class="info-row">
+                <span class="info-label">Expérience</span>
+                <span class="info-value">${exp.role} chez ${exp.entreprise}<br>${exp.debut} → ${exp.fin}</span>
+            </div>
+        `).join('')
+        : '<div class="info-row"><span class="info-value">Aucune expérience</span></div>';
+    
+    modal.innerHTML = `
+        <div class="btncancel">
+            <h1>Profil de l'employé</h1>
+            <button type="button" id="closeProfileModal">X</button>
+        </div>
+        <div class="profile-header">
+            <img src="${employee.image}" class="profile-photo" alt="${employee.name}">
+            <h2 class="profile-name">${employee.name}</h2>
+            <span class="profile-role">${employee.role}</span>
+        </div>
+        <div class="profile-info">
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value">${employee.email}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Téléphone</span>
+                <span class="info-value">${employee.phone}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Localisation</span>
+                <span class="info-value">${location}</span>
+            </div>
+            ${experiencesHTML}
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.getElementById("modalOverlay").classList.add("active");
+    
+    document.getElementById("closeProfileModal").addEventListener("click", () => {
+        modal.remove();
+        // Ne retirer l'overlay que s'il n'y a plus de modales actives
+        const activeModals = document.querySelectorAll('.validationForm.active, .profile-modal.active');
+        if (activeModals.length === 0) {
+            document.getElementById("modalOverlay").classList.remove("active");
+        }
+    });
+}
+
 document.getElementById("validation").addEventListener("click", () => {
     const ValidForm = document.createElement("div");
     ValidForm.className = "validationForm active";
@@ -135,7 +250,7 @@ document.getElementById("validation").addEventListener("click", () => {
         const ExperMessage = document.getElementById("experiencemessage");
 
         // VALIDATION FULL NAME
-        if (!/^[a-zA-Z ]+$/.test(Fname)) {
+        if (!/^[a-zA-ZÀ-ÿ ]+$/.test(Fname)) {
             Fnamemessage.innerText = "Nom invalide (lettres uniquement)";
             Fnamemessage.style.color = "red";
             return;
@@ -225,7 +340,7 @@ function createPersonnelCard(Fname, Image, Role, Email, Telephone, Experiences) 
             <h1>${Fname}</h1>
             <p>${Role}</p>
         </div>
-    `;  
+    `;
 
     persoList.appendChild(carte);
 }
@@ -234,6 +349,11 @@ document.querySelectorAll('.plusbtn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         const zone = e.target.dataset.zone;
         const allowedRoles = roomConfig[zone];
+
+        if (RoomArr[zone].length >= roomLimits[zone]) {
+            alert(`Cette salle est pleine ! Maximum : ${roomLimits[zone]} personnes`);
+            return;
+        }
 
         const ValidForm = document.createElement("div");
         ValidForm.className = "validationForm active";
@@ -298,6 +418,11 @@ document.querySelectorAll('.plusbtn').forEach(btn => {
 function assignToRoom(zone, employee) {
     const roomList = document.getElementById(`${zone}list`);
 
+    // VÉRIFIER LA LIMITE (sécurité supplémentaire)
+    if (RoomArr[zone].length >= roomLimits[zone]) {
+        alert(`Cette salle est pleine ! Maximum : ${roomLimits[zone]} personnes`);
+        return;
+    }
     
     // Ajouter à l'array de la salle
     RoomArr[zone].push(employee);
@@ -307,7 +432,11 @@ function assignToRoom(zone, employee) {
     carte.classList.add("pronalinfor");
     carte.dataset.name = employee.name;
     carte.innerHTML = `
-        <img src="${employee.image}" alt="userlogo" data-profile="${employee.name}">
+        <img src="${employee.image}" alt="userlogo">
+        <div class="info" data-profile="${employee.name}">
+            <h1>${employee.name}</h1>
+            <p>${employee.role}</p>
+        </div>
         <button class="remove-from-zone" data-zone="${zone}" data-name="${employee.name}">×</button>
     `;
 
@@ -328,10 +457,16 @@ function assignToRoom(zone, employee) {
             </div>
         `;
     }
+
+    // METTRE À JOUR LES INDICATEURS
+    ZoneCounter(zone);
+    updatePlusButton(zone);
+    RoomStatus();
 }
 
 // Gestion de la suppression d'une salle
 document.addEventListener('click', (e) => {
+    // SUPPRESSION D'UNE ZONE
     if (e.target.classList.contains('remove-from-zone')) {
         const zone = e.target.dataset.zone;
         const name = e.target.dataset.name;
@@ -356,76 +491,33 @@ document.addEventListener('click', (e) => {
             }
 
             createPersonnelCard(employee.name, employee.image, employee.role, employee.email, employee.phone, employee.experiences);
+
+            // METTRE À JOUR LES INDICATEURS
+            ZoneCounter(zone);
+            updatePlusButton(zone);
+            RoomStatus();
         }
+    }
+
+    // AFFICHAGE DU PROFIL
+    if (e.target.closest('.info[data-profile]')) {
+        const name = e.target.closest('.info').dataset.profile;
+        ProfileModal(name);
     }
 });
 
-// Affichage du profil au clic
-document.addEventListener('click', (e) => {
-    const profileElement = e.target.closest('[data-profile]');
-    if (profileElement) {
-        const DataName = profileElement.dataset.profile;
-        const employee = GlobalAWorks.find(pr => pr.name === DataName);
-
-        if (employee) {
-            const DisplayProfile = document.createElement('div');
-            DisplayProfile.classList.add('profile-modal', 'active');
-            DisplayProfile.id = "profiledisplay";
-
-            let experiencesHTML = '';
-            if (employee.experiences && employee.experiences.length > 0) {
-                experiencesHTML = employee.experiences.map(exp => `
-                    <div class="info-row">
-                        <div class="info-label">Entreprise:</div>
-                        <div class="info-value">${exp.entreprise || 'N/A'}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Rôle:</div>
-                        <div class="info-value">${exp.role || 'N/A'}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Période:</div>
-                        <div class="info-value">${exp.debut || 'N/A'} - ${exp.fin || 'N/A'}</div>
-                    </div>
-                    <hr style="margin: 10px 0;">
-                `).join('');
-            } else {
-                experiencesHTML = '<p style="text-align: center; color: #999;">Aucune expérience enregistrée</p>';
-            }
-
-            DisplayProfile.innerHTML = `
-                <div class="btncancel">
-                    <h1>Profil</h1>
-                    <button type="button" id="closeProfile">X</button>
-                </div>
-                <div class="profile-header">
-                    <img src="${employee.image}" alt="Profile" class="profile-photo">
-                    <h2 class="profile-name">${employee.name}</h2>
-                    <span class="profile-role">${employee.role}</span>
-                </div>
-                <div class="profile-info">
-                    <div class="info-row">
-                        <div class="info-label">Email:</div>
-                        <div class="info-value">${employee.email}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Téléphone:</div>
-                        <div class="info-value">${employee.phone}</div>
-                    </div>
-                    <hr style="margin: 20px 0;">
-                    <h3 style="margin-bottom: 15px;">Expériences</h3>
-                    ${experiencesHTML}
-                </div>
-            `;
-
-            container.appendChild(DisplayProfile);
-            document.getElementById("modalOverlay").classList.add("active");
-
-            document.getElementById("closeProfile").addEventListener("click", () => {
-                DisplayProfile.remove();
-                document.getElementById("modalOverlay").classList.remove("active");
-            });
-        }
-    }
+// Fermer les modales en cliquant sur l'overlay
+document.getElementById("modalOverlay").addEventListener("click", () => {
+    document.querySelectorAll('.validationForm.active').forEach(modal => modal.remove());
+    document.querySelectorAll('.profile-modal.active').forEach(modal => modal.remove());
+    document.getElementById("modalOverlay").classList.remove("active");
 });
 
+// INITIALISER LES COMPTEURS ET STATUTS AU CHARGEMENT
+document.addEventListener('DOMContentLoaded', () => {
+    Object.keys(RoomArr).forEach(zone => {
+        ZoneCounter(zone);
+        updatePlusButton(zone);
+    });
+    RoomStatus();
+});
