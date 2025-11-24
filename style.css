@@ -1,0 +1,912 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: rgba(24, 7, 7, 1);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    height: 8vh;
+}
+
+header h1 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.bigcontain {
+    display: flex;
+    height:auto ;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18%;
+    background: white;
+    height: 92vh;
+    padding: 20px 0;
+}
+
+.validation {
+    background: rgb(45, 209, 45);
+    color: white;
+    height: 50px;
+    width: 90%;
+    font-size: 17px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.validation:hover {
+    background: rgb(35, 190, 35);
+}
+
+hr {
+    width: 90%;
+    margin: 20px 0;
+    border: none;
+    border-top: 2px solid #e0e0e0;
+}
+
+.persolist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    overflow-y: auto;
+    padding: 0 10px;
+    height: calc(92vh - 150px);
+}
+
+.pronalinfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    width: 95%;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.pronalinfo:hover {
+    border-color: #00b4d8;
+}
+
+.pronalinfo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid rgb(45, 209, 45);
+    object-fit: cover;
+}
+
+.info {
+    flex: 1;
+}
+
+.info h1 {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.info p {
+    font-size: 11px;
+    color: #666;
+    background: #f0f0f0;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 38% 16% 23% 23%;
+    background-image: url(image/plan.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    grid-template-rows: repeat(3, 34%);
+    width: 100%;
+    height: 81vh;
+    position: relative;
+}
+
+.rotation{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.conference,
+.reception,
+.serveurs,
+.securite,
+.personnel,
+.archives,
+.vertcolouar,
+.horizcolouar {
+    position: relative;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    z-index: 1;
+}
+
+.conference {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.vertcolouar {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    background: rgba(200, 200, 200, 0.5);
+}
+
+.horizcolouar {
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+    background: rgba(200, 200, 200, 0.5);
+}
+
+.reception {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+
+.serveurs {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+
+.securite {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+}
+
+.personnel {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+
+.archives {
+    grid-column: 4 / 5;
+    grid-row: 3 / 4;
+}
+
+.reception.empty-required,
+.serveurs.empty-required,
+.securite.empty-required,
+.archives.empty-required {
+    background: rgba(255, 182, 193, 0.3);
+    border: 2px dashed rgba(255, 100, 100, 0.5);
+}
+
+.conference h1,
+.reception h1,
+.serveurs h1,
+.securite h1,
+.personnel h1,
+.archives h1 {
+    font-size: 14px;
+    font-weight: 800;
+    color: whitesmoke;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.plusbtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 1000%;
+    border: none;
+    background: rgb(0, 168, 253);
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.plusbtn:hover {
+    background: rgb(0, 148, 233);
+}
+
+.plusbtn.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.conferencelist,
+.receptionlist,
+.serveurslist,
+.securitelist,
+.persnnallist,
+.archiveslist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    z-index: 1;
+}
+
+.pronalinfor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    position: relative;
+}
+
+.pronalinfor:hover {
+    border-color: #00b4d8;
+}
+
+.pronalinfor img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgb(45, 209, 45);
+    object-fit: cover;
+}
+
+.pronalinfor .info {
+    text-align: center;
+    width: 100%;
+}
+
+.pronalinfor .info h1 {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.pronalinfor .info p {
+    font-size: 10px;
+}
+
+.remove-from-zone {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background: rgb(236, 51, 51);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0;
+}
+
+.pronalinfor:hover .remove-from-zone {
+    opacity: 1;
+}
+
+.validationForm {
+    display: none;
+    flex-direction: column;
+    background: white;
+    width: 550px;
+    max-height: 90vh;
+    position: fixed;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.validationForm.active {
+    display: flex;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+.btncancel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btncancel h1 {
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.btncancel button {
+    width: 35px;
+    height: 35px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.btncancel button:hover {
+    background: rgb(236, 51, 51);
+    color: white;
+}
+
+/* Styles pour le formulaire */
+.formAjout {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formAjout label {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: -10px;
+}
+
+.formAjout input,
+.formAjout select {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    padding: 0 15px;
+    font-size: 16px;
+}
+
+.formAjout input:focus,
+.formAjout select:focus {
+    border-color: rgb(0, 168, 253);
+    outline: none;
+}
+
+.input-group1 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.profileimg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #e0e0e0;
+    object-fit: cover;
+    display: block;
+}
+
+.profileimg.active {
+    display: block;
+}
+
+/* Styles pour les expériences */
+.experienceforms {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group3 {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+}
+
+.input-group3 h1 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.input-group3 label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.input-group3 input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.addexperience {
+    padding: 10px 20px;
+    background: rgb(45, 209, 45);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.addexperience:hover {
+    background: rgb(35, 190, 35);
+}
+
+#submitt {
+    background: rgb(0, 168, 253);
+    color: white;
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+#submitt:hover {
+    background: rgb(0, 148, 233);
+}
+
+#fnamemessage,
+#emailmessage,
+#phonemessage,
+#experiencemessage {
+    font-size: 12px;
+    margin-top: 5px;
+    min-height: 18px;
+}
+
+.personnel-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.profile-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.profile-modal.active {
+    display: block;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #00b4d8;
+    margin: 0 auto 20px;
+    display: block;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.profile-role {
+    font-size: 16px;
+    color: #666;
+    background: #f0f0f0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.profile-info {
+    margin-top: 20px;
+}
+
+.info-row {
+    display: flex;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-weight: 700;
+    color: #666;
+    min-width: 140px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.info-value {
+    color: #1a1a1a;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+}
+
+.empty-state-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.zone-limit-reached::after {
+    content: "Limite atteinte";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 140, 0, 0.9);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.zone-counter {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 168, 253, 0.9);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.zone-counter {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 168, 253, 0.9);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+@media (max-width: 426px) {
+    header h1 {
+        font-size: 15px;
+    }
+
+    .bigcontain {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: fit-content;
+        gap: 15px;
+
+    }
+
+
+    .container {
+        width: 100%;
+        height: 37vh;
+    }
+
+    .vertcolouar {
+        display: none;
+    }
+
+    .side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 64vh;
+        padding: 20px 0;
+    }
+
+    .conference h1,
+    .reception h1,
+    .serveurs h1,
+    .securite h1,
+    .personnel h1,
+    .archives h1 {
+        font-size: 7px;
+        font-weight: 700;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .plusbtn {
+        width: 15px;
+        height: 15px;
+        font-size: 15px;
+    }
+
+    .validationForm {
+        width: 430px;
+        max-height: 90vh;
+        padding: 10px;
+    }
+
+    .btncancel h1 {
+        font-size: 15px;
+    }
+
+    .btncancel button {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .formAjout input,
+    .formAjout select {
+        font-size: 13px;
+    }
+
+    .profile-name {
+        font-size: 15px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-role {
+        font-size: 12px;
+    }
+
+    .info-label {
+        font-size: 10px;
+    }
+
+    .info-value {
+        font-size: 12px;
+    }
+
+}
+
+/*tlf*/
+@media (min-width: 427px) and (max-width: 768px) {
+    header h1 {
+        font-size: 15px;
+    }
+
+    .bigcontain {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: fit-content;
+        gap: 15px;
+
+    }
+
+
+    .container {
+        width: 100%;
+        height: 67vh;
+    }
+
+    .vertcolouar {
+        display: none;
+    }
+
+    .side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 64vh;
+        padding: 20px 0;
+    }
+
+    .conference h1,
+    .reception h1,
+    .serveurs h1,
+    .securite h1,
+    .personnel h1,
+    .archives h1 {
+        font-size: 7px;
+        font-weight: 700;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .plusbtn {
+        width: 15px;
+        height: 15px;
+        font-size: 15px;
+    }
+
+    .validationForm {
+        width: 430px;
+        max-height: 90vh;
+        padding: 10px;
+    }
+
+    .btncancel h1 {
+        font-size: 15px;
+    }
+
+    .btncancel button {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .formAjout input,
+    .formAjout select {
+        font-size: 13px;
+    }
+
+    .profile-name {
+        font-size: 15px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-role {
+        font-size: 12px;
+    }
+
+    .info-label {
+        font-size: 10px;
+    }
+
+    .info-value {
+        font-size: 12px;
+    }
+
+}
+
+/* Tablette li t9adet */
+@media (min-width: 769px) and (max-width: 1023px) {
+
+    header h1 {
+        font-size: 1rem;
+    }
+
+    .bigcontain {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: 92vh;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .conference h1,
+    .reception h1,
+    .serveurs h1,
+    .securite h1,
+    .personnel h1,
+    .archives h1 {
+        font-size: 9px;
+    }
+
+    .side {
+        width: 100%;
+        height: 70vh;
+    }
+
+    .plusbtn {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        font-size: 15px;
+    }
+
+    .validation {
+        height: 70px;
+        width: 90%;
+        font-size: 20px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    .validationForm {
+        width: 400px;
+        max-height: 90vh;
+        top: 40%;
+    }
+
+    .btncancel h1 {
+        font-size: 18px;
+    }
+
+    .profile-photo {
+        width: 130px;
+        height: 130px;
+    }
+
+    .btncancel button {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        font-size: 15px;
+    }
+
+    .profile-name {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+}
