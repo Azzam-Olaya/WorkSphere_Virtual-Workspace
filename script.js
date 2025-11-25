@@ -434,8 +434,7 @@ function assignToRoom(zone, employee) {
     carte.innerHTML = `
         <img src="${employee.image}" alt="userlogo">
         <div class="info" data-profile="${employee.name}">
-            <h1>${employee.name}</h1>
-            <p>${employee.role}</p>
+            
         </div>
         <button class="remove-from-zone" data-zone="${zone}" data-name="${employee.name}">×</button>
     `;
